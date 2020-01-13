@@ -1,2 +1,0 @@
-/afs/cern.ch/user/e/eballabe/public/ntuple/build/HistManager/CMakeFiles/HistManagerDict.dsomap
-/afs/cern.ch/user/e/eballabe/public/ntuple/build/ParticleAnalysis/CMakeFiles/ParticleAnalysisDict.dsomap
