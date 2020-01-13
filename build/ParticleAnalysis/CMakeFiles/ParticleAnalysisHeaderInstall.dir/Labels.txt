@@ -1,0 +1,5 @@
+# Target labels
+ ParticleAnalysis
+# Source files and their labels
+/afs/cern.ch/user/e/eballabe/public/ntuple/build/x86_64-centos7-gcc8-opt/include/ParticleAnalysis
+/afs/cern.ch/user/e/eballabe/public/ntuple/build/x86_64-centos7-gcc8-opt/include/ParticleAnalysis.rule

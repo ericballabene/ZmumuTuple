@@ -1,0 +1,34 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/HistManagerDict.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/ManageHists.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/TrackHelper.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/TrackHists.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/Root/ManageHists.cxx"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/Root/TrackHelper.cxx"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/Root/TrackHists.cxx"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"HistManager"
+		],
+		"name" : "HistManagerLib"
+	}
+}

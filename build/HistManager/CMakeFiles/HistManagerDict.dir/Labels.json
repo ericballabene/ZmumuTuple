@@ -1,0 +1,26 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/build/HistManager/CMakeFiles/HistManagerDictReflexDict.cxx",
+			"labels" : 
+			[
+				"HistManager"
+			]
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/HistManagerDict.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/selection.xml"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"HistManager"
+		],
+		"name" : "HistManagerDict"
+	}
+}

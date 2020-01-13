@@ -1,0 +1,6 @@
+# Target labels
+ ParticleAnalysis
+# Source files and their labels
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/ParticleAnalysis/ParticleAnalysisDict.h
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/ParticleAnalysis/ZmumuAnalysis.h
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/Root/ZmumuAnalysis.cxx

@@ -1,0 +1,6 @@
+# Target labels
+ HistManager
+# Source files and their labels
+/afs/cern.ch/user/e/eballabe/public/ntuple/build/HistManager/CMakeFiles/HistManagerDictDictGen
+/afs/cern.ch/user/e/eballabe/public/ntuple/build/HistManager/CMakeFiles/HistManagerDictDictGen.rule
+/afs/cern.ch/user/e/eballabe/public/ntuple/build/HistManager/CMakeFiles/HistManagerDict.dsomap.rule

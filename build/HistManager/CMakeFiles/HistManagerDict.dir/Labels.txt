@@ -1,0 +1,7 @@
+# Target labels
+ HistManager
+# Source files and their labels
+/afs/cern.ch/user/e/eballabe/public/ntuple/build/HistManager/CMakeFiles/HistManagerDictReflexDict.cxx
+ HistManager
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/HistManagerDict.h
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/selection.xml

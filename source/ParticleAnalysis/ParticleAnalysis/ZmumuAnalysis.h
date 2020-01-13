@@ -1,0 +1,335 @@
+#ifndef ParticleAnalysis_ZmumuAnalysis_H
+#define ParticleAnalysis_ZmumuAnalysis_H
+
+#include <AnaAlgorithm/AnaAlgorithm.h>
+#include <AsgTools/ToolHandle.h>
+#include <AsgTools/AnaToolHandle.h>
+
+#include <AsgAnalysisInterfaces/IGoodRunsListSelectionTool.h>
+#include <AsgAnalysisInterfaces/IPileupReweightingTool.h>
+#include <TrigConfInterfaces/ITrigConfigTool.h>
+#include <TrigDecisionTool/TrigDecisionTool.h>
+#include <MuonAnalysisInterfaces/IMuonSelectionTool.h>
+#include <MuonAnalysisInterfaces/IMuonCalibrationAndSmearingTool.h>
+#include <JetInterface/IJetSelector.h>
+#include <JetAnalysisInterfaces/IJetJvtEfficiency.h>
+
+// #include <HistManager/TrackHists.h>
+
+#include <TTree.h>
+#include <TH1F.h>
+#include <TH2F.h>
+
+//#include <EventLoop/Algorithm.h>
+//#include <xAODRootAccess/Init.h>
+//#include <xAODRootAccess/TEvent.h>
+//#include <xAODRootAccess/TStore.h>
+
+class ZmumuAnalysis : public EL::AnaAlgorithm {
+  public:
+    // this is a standard algorithm constructor
+    ZmumuAnalysis(const std::string& name, ISvcLocator* pSvcLocator);
+
+    virtual ~ZmumuAnalysis();
+
+    // these are the functions inherited from Algorithm
+    virtual StatusCode initialize () override;
+    virtual StatusCode execute () override;
+    virtual StatusCode finalize () override;
+
+//    virtual StatusCode setupJob (EL::Job& job);
+
+    StatusCode PixelNtupleMaker(bool isMC);
+
+    int m_eventCounter;     //!
+
+    bool m_flagTRKSTREAM; //!
+    const std::string m_GRLFile; //!
+    const std::string m_pileupWeightFile; //!
+    const std::string m_lumiCalcFile; //!
+
+    asg::AnaToolHandle<IGoodRunsListSelectionTool> m_grl; //!
+    asg::AnaToolHandle<CP::IPileupReweightingTool> m_pileuptool; //!
+
+    asg::AnaToolHandle<TrigConf::ITrigConfigTool> m_trigConfigTool; //!
+    asg::AnaToolHandle<Trig::TrigDecisionTool>    m_trigDecisionTool; //!
+
+    asg::AnaToolHandle<CP::IMuonSelectionTool>     m_muonSelection; //! 
+    asg::AnaToolHandle<CP::IMuonCalibrationAndSmearingTool> m_muonCalibrationAndSmearingTool; //! 
+
+    asg::AnaToolHandle<IJetSelector> m_jetCleaning; //!
+    asg::AnaToolHandle<CP::IJetJvtEfficiency> m_jetsf; //!
+    asg::AnaToolHandle<CP::IJetJvtEfficiency> m_fjetsf; //!
+
+    template<typename L, typename R> double deltaPhi(L *p1, R *p2) {
+      double dphi = p1->phi() - p2->phi();
+      if (dphi >= TMath::Pi()) { dphi = 2.0*TMath::Pi()-dphi; }
+      if (dphi < -TMath::Pi()) { dphi = 2.0*TMath::Pi()+dphi; }
+      return dphi;
+    }
+
+    template<typename L, typename R> double deltaR(L *p1, R *p2) {
+      double dphi = deltaPhi(p1, p2);
+      double deta = p1->eta()-p2->eta();
+      double dR = TMath::Sqrt(dphi*dphi+deta*deta);
+      return dR;
+    }
+
+    bool checkQuality(const xAOD::TrackParticle* trk);
+
+    // Fill Root Tree
+    unsigned int m_runNumber = 0;
+    unsigned long long m_eventNumber = 0;
+    double m_pileupWeight = 0;
+    double m_mcWeight = 0;
+
+    int   m_lumiB;
+    float m_averagePU;
+    float m_eventPU;
+    int   m_mcFlag; 
+
+    int   m_numVtx;
+    float m_pVtxX;
+    float m_pVtxY;
+    float m_pVtxZ;
+    float m_pVtxXErr;
+    float m_pVtxYErr;
+    float m_pVtxZErr;
+
+    float m_truthPVtxX;
+    float m_truthPVtxY;
+    float m_truthPVtxZ;
+
+    std::vector<float> *m_trackPt = nullptr;
+    std::vector<float> *m_trackPhi = nullptr;
+    std::vector<float> *m_trackEta = nullptr;
+    std::vector<float> *m_trackTheta = nullptr;
+    std::vector<float> *m_trackCharge = nullptr;
+    std::vector<float> *m_trackqOverP = nullptr;
+    std::vector<float> *m_trackD0 = nullptr;
+    std::vector<float> *m_trackZ0 = nullptr;
+    std::vector<float> *m_trackD0Err = nullptr;
+    std::vector<float> *m_trackZ0Err = nullptr;
+    std::vector<float> *m_trackqOverPErr = nullptr;
+    std::vector<float> *m_trackDeltaZSinTheta = nullptr;
+    std::vector<float> *m_trackMindR = nullptr;
+    std::vector<int> *m_trackClass = nullptr;
+    std::vector<int> *m_trackPassCut = nullptr;
+    std::vector<int> *m_trackOutliers = nullptr;
+    std::vector<float> *m_trackChiSqPerDof = nullptr;
+    std::vector<float> *m_trackStdDevChi2OS = nullptr;
+    std::vector<int> *m_nPixelHits = nullptr;
+    std::vector<int> *m_nPixelHoles = nullptr;
+    std::vector<int> *m_nPixelLayers = nullptr;
+    std::vector<int> *m_nPixelOutliers = nullptr;
+    std::vector<int> *m_nPixelGanged = nullptr;
+    std::vector<int> *m_nPixelShared = nullptr;
+    std::vector<int> *m_nPixelSplit = nullptr;
+    std::vector<int> *m_nPixelDeadSensors = nullptr;
+    std::vector<int> *m_nIBLUsedHits = nullptr;
+    std::vector<int> *m_nBLUsedHits = nullptr;
+    std::vector<int> *m_nSCTHits = nullptr;
+    std::vector<int> *m_nSCTHoles = nullptr;
+    std::vector<int> *m_nSCTOutliers = nullptr;
+    std::vector<int> *m_nSCTDeadSensors = nullptr;
+    std::vector<int> *m_nTRTHits = nullptr;
+    std::vector<int> *m_nTRTOutliers = nullptr;
+    std::vector<int> *m_nTRTHoles = nullptr;
+    std::vector<int> *m_nTRTHTHits = nullptr;
+    std::vector<int> *m_nIBLSplitHits = nullptr;
+    std::vector<int> *m_nBLSplitHits = nullptr;
+    std::vector<int> *m_nIBLSharedHits = nullptr;
+    std::vector<int> *m_nBLSharedHits = nullptr;
+    std::vector<int> *m_nIBLHits = nullptr;
+    std::vector<int> *m_nBLHits = nullptr;
+    std::vector<int> *m_nL1Hits = nullptr;
+    std::vector<int> *m_nL2Hits = nullptr;
+    std::vector<int> *m_nECHits = nullptr;
+    std::vector<int> *m_nIBLExpectedHits = nullptr;
+    std::vector<int> *m_nBLExpectedHits = nullptr;
+    std::vector<int> *m_nSCTSharedHits = nullptr;
+    std::vector<float> *m_TruncateddEdx  = nullptr;
+    std::vector<int>   *m_nTruncateddEdx = nullptr;
+    std::vector<float> *m_extrapolatedIBLX = nullptr;
+    std::vector<float> *m_extrapolatedIBLY = nullptr;
+    std::vector<float> *m_extrapolatedIBLZ = nullptr;
+    std::vector<float> *m_extrapolatedBLX = nullptr;
+    std::vector<float> *m_extrapolatedBLY = nullptr;
+    std::vector<float> *m_extrapolatedBLZ = nullptr;
+    std::vector<float> *m_extrapolatedL1X = nullptr;
+    std::vector<float> *m_extrapolatedL1Y = nullptr;
+    std::vector<float> *m_extrapolatedL1Z = nullptr;
+    std::vector<float> *m_extrapolatedL2X = nullptr;
+    std::vector<float> *m_extrapolatedL2Y = nullptr;
+    std::vector<float> *m_extrapolatedL2Z = nullptr;
+
+    std::vector<float> *m_truePt = nullptr;
+    std::vector<float> *m_truePhi = nullptr;
+    std::vector<float> *m_trueEta = nullptr;
+    std::vector<float> *m_trueE = nullptr;
+    std::vector<float> *m_trued0 = nullptr;
+    std::vector<float> *m_truez0 = nullptr;
+    std::vector<float> *m_truephi = nullptr;
+    std::vector<float> *m_truetheta = nullptr;
+    std::vector<float> *m_trueqoverp = nullptr;
+    std::vector<int>   *m_truepdgid = nullptr;
+    std::vector<int>   *m_truebarcode = nullptr;
+    std::vector<float> *m_truthmatchprob = nullptr;
+    std::vector<float> *m_trueMindR = nullptr;
+    std::vector<float> *m_genVtxR = nullptr;
+    std::vector<float> *m_genVtxZ = nullptr;
+    std::vector<int>   *m_parentFlav = nullptr;
+
+    std::vector<std::vector<int>> *m_hitIsEndCap = nullptr;
+    std::vector<std::vector<int>> *m_hitIsHole = nullptr;
+    std::vector<std::vector<int>> *m_hitIsOutlier = nullptr;
+    std::vector<std::vector<int>> *m_hitLayer = nullptr;
+    std::vector<std::vector<int>> *m_hitEtaModule = nullptr;
+    std::vector<std::vector<int>> *m_hitPhiModule = nullptr;
+    std::vector<std::vector<float>> *m_hitCharge = nullptr;
+    std::vector<std::vector<int>> *m_hitToT = nullptr;
+    std::vector<std::vector<int>> *m_hitLVL1A = nullptr;
+    std::vector<std::vector<int>> *m_hitNPixel = nullptr;
+    std::vector<std::vector<int>> *m_hitNPixelX = nullptr;
+    std::vector<std::vector<int>> *m_hitNPixelY = nullptr;
+    std::vector<std::vector<int>> *m_hitBSerr = nullptr;
+    std::vector<std::vector<int>> *m_hitDCSstate = nullptr;
+    std::vector<std::vector<float>> *m_hitVBias = nullptr;
+    std::vector<std::vector<float>> *m_hitTemp = nullptr;
+    std::vector<std::vector<float>> *m_hitLorentzShift = nullptr;
+    std::vector<std::vector<int>> *m_hitIsSplit = nullptr;
+    std::vector<std::vector<bool>> *m_hitIsEdge = nullptr;
+    std::vector<std::vector<bool>> *m_hitIsOverflow = nullptr;
+    std::vector<std::vector<int>> *m_hitIsolation10x2 = nullptr;
+    std::vector<std::vector<int>> *m_hitIsolation20x4 = nullptr;
+    std::vector<std::vector<float>> *m_hitGlobalX = nullptr;
+    std::vector<std::vector<float>> *m_hitGlobalY = nullptr;
+    std::vector<std::vector<float>> *m_hitGlobalZ = nullptr;
+    std::vector<std::vector<float>> *m_hitLocalX = nullptr;
+    std::vector<std::vector<float>> *m_hitLocalY = nullptr;
+    std::vector<std::vector<float>> *m_trkLocalX = nullptr;
+    std::vector<std::vector<float>> *m_trkLocalY = nullptr;
+    std::vector<std::vector<float>> *m_unbiasedResidualX = nullptr;
+    std::vector<std::vector<float>> *m_unbiasedResidualY = nullptr;
+    std::vector<std::vector<float>> *m_unbiasedPullX = nullptr;
+    std::vector<std::vector<float>> *m_unbiasedPullY = nullptr;
+    std::vector<std::vector<float>> *m_trkPhiOnSurface = nullptr;
+    std::vector<std::vector<float>> *m_trkThetaOnSurface = nullptr;
+    std::vector<std::vector<int>> *m_numTotalClustersPerModule = nullptr;
+    std::vector<std::vector<int>> *m_numTotalPixelsPerModule   = nullptr;
+    std::vector<std::vector<std::vector<int>>> *m_RdoToT = nullptr;
+    std::vector<std::vector<std::vector<float>>> *m_RdoCharge = nullptr;
+    std::vector<std::vector<std::vector<int>>> *m_RdoPhi = nullptr;
+    std::vector<std::vector<std::vector<int>>> *m_RdoEta = nullptr;
+    std::vector<std::vector<std::vector<int>>> *m_hitTruthPdgId = nullptr;
+    std::vector<std::vector<std::vector<int>>> *m_siHitPdgId = nullptr;
+    std::vector<std::vector<std::vector<int>>> *m_siHitBarcode = nullptr;
+    std::vector<std::vector<std::vector<float>>> *m_siHitStartPosX = nullptr;
+    std::vector<std::vector<std::vector<float>>> *m_siHitStartPosY = nullptr;
+    std::vector<std::vector<std::vector<float>>> *m_siHitEndPosX = nullptr;
+    std::vector<std::vector<std::vector<float>>> *m_siHitEndPosY = nullptr;
+    std::vector<std::vector<std::vector<float>>> *m_siHitEnergyDeposit = nullptr;
+
+    std::vector<float> *m_truthEta = nullptr;
+    std::vector<float> *m_truthPhi = nullptr;
+    std::vector<float> *m_truthPt = nullptr;
+    std::vector<float> *m_truthE = nullptr;
+    std::vector<float> *m_truthCharge = nullptr;
+    std::vector<int>   *m_truthPdgId = nullptr;
+    std::vector<int>   *m_truthBarcode = nullptr;
+    std::vector<int>   *m_truthStatus = nullptr;
+
+    std::vector<float> *m_muonEta = nullptr;
+    std::vector<float> *m_muonPhi = nullptr;
+    std::vector<float> *m_muonPt = nullptr;
+    std::vector<float> *m_muonE = nullptr;
+
+    std::vector<float> *m_jetEta = nullptr;
+    std::vector<float> *m_jetPhi = nullptr;
+    std::vector<float> *m_jetPt = nullptr;
+    std::vector<float> *m_jetE = nullptr;
+    std::vector<int>   *m_jetPassJVT = nullptr;
+
+    std::vector<float> *m_tauEta = nullptr;
+    std::vector<float> *m_tauPhi = nullptr;
+    std::vector<float> *m_tauPt = nullptr;
+    std::vector<float> *m_tauM = nullptr;
+    std::vector<float> *m_tauCharge = nullptr;
+    std::vector<int>   *m_tau_nTracksCharged = nullptr;
+    std::vector<int>   *m_tau_nTracksIsolation = nullptr;
+    std::vector<int>   *m_tau_nAllTracks = nullptr;
+    std::vector<int>   *m_tau_trackFilterProngs = nullptr;
+    std::vector<int>   *m_tau_trackFilterQuality = nullptr;
+    std::vector<int>   *m_tau_nClusters = nullptr;
+    std::vector<int>   *m_tau_nPi0s = nullptr;
+    std::vector<int>   *m_tau_numCells = nullptr;
+    std::vector<int>   *m_tau_isTauFlags = nullptr;
+    std::vector<float> *m_tau_BDTJetScore = nullptr;
+    std::vector<float> *m_tau_BDTEleScore = nullptr;
+    std::vector<float> *m_tau_EleMatchLikelihoodScore = nullptr;
+    std::vector<float> *m_tau_BDTJetScoreSigTrans = nullptr;
+    std::vector<float> *m_tau_RNNJetScore = nullptr;
+    std::vector<float> *m_tau_RNNJetScoreSigTrans = nullptr;
+    std::vector<float> *m_tau_ipZ0SinThetaSigLeadTrk = nullptr;
+    std::vector<float> *m_tau_etOverPtLeadTrk = nullptr;
+    std::vector<float> *m_tau_leadTrkPt = nullptr;
+    std::vector<float> *m_tau_ipSigLeadTrk = nullptr;
+    std::vector<float> *m_tau_massTrkSys = nullptr;
+    std::vector<float> *m_tau_trkWidth2 = nullptr;
+    std::vector<float> *m_tau_trFlightPathSig = nullptr;
+    std::vector<float> *m_tau_EMRadius = nullptr;
+    std::vector<float> *m_tau_hadRadius = nullptr;
+    std::vector<float> *m_tau_etEMAtEMScale = nullptr;
+    std::vector<float> *m_tau_etHadAtEMScale = nullptr;
+    std::vector<float> *m_tau_isolFrac = nullptr;
+    std::vector<float> *m_tau_centFrac = nullptr;
+    std::vector<float> *m_tau_stripWidth2 = nullptr;
+    std::vector<int>   *m_tau_nStrip = nullptr;
+    std::vector<float> *m_tau_trkAvgDist = nullptr;
+    std::vector<float> *m_tau_dRmax = nullptr;
+
+    float m_metCaloPx;
+    float m_metCaloPy;
+    float m_metCaloET;
+    float m_metCaloSumET;
+
+    float m_metTrackPx;
+    float m_metTrackPy;
+    float m_metTrackET;
+    float m_metTrackSumET;
+
+    float m_metLocHadPx;
+    float m_metLocHadPy;
+    float m_metLocHadET;
+    float m_metLocHadSumET;
+
+    float m_metCoreLCTopoPx;
+    float m_metCoreLCTopoPy;
+    float m_metCoreLCTopoET;
+    float m_metCoreLCTopoSumET;
+
+    float m_metRefLCTopoPx;
+    float m_metRefLCTopoPy;
+    float m_metRefLCTopoET;
+    float m_metRefLCTopoSumET;
+
+    float m_metTruthPx;
+    float m_metTruthPy;
+    float m_metTruthET;
+    float m_metTruthSumET;
+
+//    TrackHists *trkHist_muon; //!
+//    TrackHists *trkHist_jet; //!
+//    TrackHists *trkHist_iso; //!
+
+  private:
+    
+    // Configuration, and any other types of variables go here.
+    //float m_cutValue;
+    //TTree *m_myTree;
+    //TH1 *m_myHist;
+
+};
+
+#endif
+

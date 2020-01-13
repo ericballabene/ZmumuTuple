@@ -1,0 +1,10 @@
+# Target labels
+ HistManager
+# Source files and their labels
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/HistManagerDict.h
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/ManageHists.h
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/TrackHelper.h
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/HistManager/TrackHists.h
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/Root/ManageHists.cxx
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/Root/TrackHelper.cxx
+/afs/cern.ch/user/e/eballabe/public/ntuple/source/HistManager/Root/TrackHists.cxx

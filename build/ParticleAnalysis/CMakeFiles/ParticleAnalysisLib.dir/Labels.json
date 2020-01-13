@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/ParticleAnalysis/ParticleAnalysisDict.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/ParticleAnalysis/ZmumuAnalysis.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/Root/ZmumuAnalysis.cxx"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"ParticleAnalysis"
+		],
+		"name" : "ParticleAnalysisLib"
+	}
+}

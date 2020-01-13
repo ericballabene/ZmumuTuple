@@ -1,0 +1,19 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/build/x86_64-centos7-gcc8-opt/include/HistManager"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/build/x86_64-centos7-gcc8-opt/include/HistManager.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"HistManager"
+		],
+		"name" : "HistManagerHeaderInstall"
+	}
+}

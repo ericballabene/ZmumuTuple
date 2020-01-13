@@ -1,0 +1,5 @@
+<lcgdict>
+  <!-- This file contains a list of all classes for which a dictionary should be created. -->
+  <class name="ParticleAnalysis" />
+</lcgdict>
+

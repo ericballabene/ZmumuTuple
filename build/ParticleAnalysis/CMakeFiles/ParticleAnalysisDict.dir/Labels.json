@@ -1,0 +1,26 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/build/ParticleAnalysis/CMakeFiles/ParticleAnalysisDictReflexDict.cxx",
+			"labels" : 
+			[
+				"ParticleAnalysis"
+			]
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/ParticleAnalysis/ParticleAnalysisDict.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/e/eballabe/public/ntuple/source/ParticleAnalysis/ParticleAnalysis/selection.xml"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"ParticleAnalysis"
+		],
+		"name" : "ParticleAnalysisDict"
+	}
+}

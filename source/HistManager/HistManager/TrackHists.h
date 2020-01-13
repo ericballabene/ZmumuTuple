@@ -1,0 +1,240 @@
+#ifndef HistManager_TrackHists_H
+#define HistManager_TrackHists_H
+
+#include "HistManager/ManageHists.h"
+#include <set>
+
+#ifndef __MAKECINT__
+#include "xAODTracking/TrackParticle.h"
+#endif // not __MAKECINT__
+
+class TrackHists : public ManageHists {
+
+  public:
+
+    TrackHists(TString name);
+    ~TrackHists();
+
+    void BookHists();
+#ifndef __MAKECINT__
+    void FillHists(const xAOD::TrackParticle* trk, float weight) const;
+
+
+    //* Determine if the TruthParticle has been used before */
+    bool hasBeenUsed( const xAOD::TrackParticle* trk) {
+      if (m_usedBarcodes.find(trk->auxdata<int>("barcode"))==m_usedBarcodes.end()) { return false; } 
+      else { return true; }
+    }
+
+    //* Determine if the TruthParticle has been used before */
+    void resetBarcodes() {
+      m_usedBarcodes.clear();
+    }
+
+#endif // not __MAKECINT__
+
+  private:
+
+    TString m_name;
+    TString m_label;
+    bool m_isPseudo;
+    mutable std::set<int> m_usedBarcodes; //!
+
+  public:
+
+    TH1F* m_prodR; //!
+    TH1F* m_prodZ; //!
+    TH1F* m_truthPt; //!
+    TH1F* m_truthPtnarrow; //!
+    TH1F* m_truthEta; //!
+    TH1F* m_truthD0; //!
+    TH1F* m_truthD0_wide; //!
+    TH1F* m_truthZ0; //!
+    TH1F* m_truthPhi; //!
+
+    /* track parameterization */
+    TH1F* m_qoverp; //!     
+    TH1F* m_pt; //!       
+    TH1F* m_ptnarrow; //!       
+    TH1F* m_eta; //!        
+    TH1F* m_phi; //!        
+    TH1F* m_d0; //!       
+    TH1F* m_z0; //!       
+
+    TH2F* m_eta_phi; //!
+
+    /* track parameterization errors */
+    TH1F* m_qoverp_err; //!       
+    TH1F* m_eta_err; //!        
+    TH1F* m_d0_err; //!       
+    TH1F* m_d0signif; //!       
+    TH1F* m_z0_err; //!       
+    TH1F* m_phi_err; //!        
+
+    /* Resolution */
+    TH1F* m_dpt; //!
+    TH1F* m_dphi; //!
+    TH1F* m_deta; //!
+    TH1F* m_dd0; //!
+    TH1F* m_dz0; //!
+
+    /* track properties */
+    TH1F* m_nPixHits; //! 
+    TH1F* m_nSCTHits; //! 
+    TH1F* m_nSiHits; //!
+
+    TH2F* m_eta_nPixHits; //!
+    TH2F* m_eta_nSCTHits; //!
+    TH2F* m_eta_nSiHits; //!
+
+    TH1F* m_nGangedPix; //! 
+    TH1F* m_nGangedPixFF; //! 
+    TH1F* m_nPixLay; //! 
+    TH1F* m_nPixSharedHits; //!        
+    TH1F* m_nPixSplitHits; //!        
+    TH1F* m_nPixSpoiltHits; //!       
+    TH1F* m_nPixOutliers; //!       
+    TH1F* m_nPixHoles; //!        
+    TH1F* m_nPixelDeadSensors; //! 
+    TH1F* m_nSCTSharedHits; //!       
+    TH1F* m_nSCTSpoiltHits; //!       
+    TH1F* m_nSCTOutliers; //!       
+    TH1F* m_nSCTHoles; //!   
+    TH1F* m_nSCTDoubleHoles; //!        
+    TH1F* m_nSCTDeadSensors; //!
+    TH1F* m_nSiDeadSensors; //!
+
+    TH1F* m_nTRTHits; //! 
+    TH1F* m_nTRTOutliers; //!       
+    TH1F* m_nTRTHoles; //!        
+    TH1F* m_nTRTHTHits; //! 
+
+    TH1F* m_chiSqPerDof; //!
+    TH1F* m_nOutliers; //!
+    TH1F* m_stdDevChi2OS; //!
+
+    TH1F* m_truthMatchProb; //!
+
+    // Cluster study
+    TH1F* m_IBLIsEdge; //!
+    TH1F* m_IBLIsOverflow; //!
+    TH1F* m_IBLIsSplit; //!
+    TH1F* m_IBLL1A; //!
+    TH1F* m_IBLToT; //!
+    TH1F* m_IBLCharge; //!
+    TH1F* m_IBLdEdx; //!
+    TH2F* m_IBLdEdxVsP; //!
+    TH1F* m_IBLHitSize; //!
+    TH1F* m_IBLHitSizeZ; //!
+    TH1F* m_IBLHitSizePhi; //!
+    TH1F* m_IBLunbiasedResidualX; //!
+    TH1F* m_IBLunbiasedResidualY; //!
+    TH1F* m_IBLIsolation10x2; //!
+    TH1F* m_IBLIsolation20x4; //!
+    TH1F* m_IBLnumTotalClustersPerModule; //!
+    TH1F* m_IBLnumTotalPixelsPerModule; //!
+    TH2F* m_IBLLorentzAngle; //!
+    TH2F* m_IBLMap; //!
+    TH2F* m_IBLMapHit; //!
+    TH1F* m_IBLMapEta; //!
+    TH1F* m_IBLMapHitEta; //!
+
+    TH1F* m_BLYIsEdge; //!
+    TH1F* m_BLYIsOverflow; //!
+    TH1F* m_BLYIsSplit; //!
+    TH1F* m_BLYL1A; //!
+    TH1F* m_BLYToT; //!
+    TH1F* m_BLYCharge; //!
+    TH1F* m_BLYdEdx; //!
+    TH2F* m_BLYdEdxVsP; //!
+    TH1F* m_BLYHitSize; //!
+    TH1F* m_BLYHitSizeZ; //!
+    TH1F* m_BLYHitSizePhi; //!
+    TH1F* m_BLYunbiasedResidualX; //!
+    TH1F* m_BLYunbiasedResidualY; //!
+    TH1F* m_BLYIsolation10x2; //!
+    TH1F* m_BLYIsolation20x4; //!
+    TH1F* m_BLYnumTotalClustersPerModule; //!
+    TH1F* m_BLYnumTotalPixelsPerModule; //!
+    TH2F* m_BLYLorentzAngle; //!
+    TH2F* m_BLYMap; //!
+    TH2F* m_BLYMapHit; //!
+    TH1F* m_BLYMapEta; //!
+    TH1F* m_BLYMapHitEta; //!
+
+    TH1F* m_LY1IsEdge; //!
+    TH1F* m_LY1IsOverflow; //!
+    TH1F* m_LY1IsSplit; //!
+    TH1F* m_LY1L1A; //!
+    TH1F* m_LY1ToT; //!
+    TH1F* m_LY1Charge; //!
+    TH1F* m_LY1dEdx; //!
+    TH2F* m_LY1dEdxVsP; //!
+    TH1F* m_LY1HitSize; //!
+    TH1F* m_LY1HitSizeZ; //!
+    TH1F* m_LY1HitSizePhi; //!
+    TH1F* m_LY1unbiasedResidualX; //!
+    TH1F* m_LY1unbiasedResidualY; //!
+    TH1F* m_LY1Isolation10x2; //!
+    TH1F* m_LY1Isolation20x4; //!
+    TH1F* m_LY1numTotalClustersPerModule; //!
+    TH1F* m_LY1numTotalPixelsPerModule; //!
+    TH2F* m_LY1LorentzAngle; //!
+    TH2F* m_LY1Map; //!
+    TH2F* m_LY1MapHit; //!
+    TH1F* m_LY1MapEta; //!
+    TH1F* m_LY1MapHitEta; //!
+
+    TH1F* m_LY2IsEdge; //!
+    TH1F* m_LY2IsOverflow; //!
+    TH1F* m_LY2IsSplit; //!
+    TH1F* m_LY2L1A; //!
+    TH1F* m_LY2ToT; //!
+    TH1F* m_LY2Charge; //!
+    TH1F* m_LY2dEdx; //!
+    TH2F* m_LY2dEdxVsP; //!
+    TH1F* m_LY2HitSize; //!
+    TH1F* m_LY2HitSizeZ; //!
+    TH1F* m_LY2HitSizePhi; //!
+    TH1F* m_LY2unbiasedResidualX; //!
+    TH1F* m_LY2unbiasedResidualY; //!
+    TH1F* m_LY2Isolation10x2; //!
+    TH1F* m_LY2Isolation20x4; //!
+    TH1F* m_LY2numTotalClustersPerModule; //!
+    TH1F* m_LY2numTotalPixelsPerModule; //!
+    TH2F* m_LY2LorentzAngle; //!
+    TH2F* m_LY2Map; //!
+    TH2F* m_LY2MapHit; //!
+    TH1F* m_LY2MapEta; //!
+    TH1F* m_LY2MapHitEta; //!
+
+    TH1F* m_ENDIsEdge; //!
+    TH1F* m_ENDIsOverflow; //!
+    TH1F* m_ENDIsSplit; //!
+    TH1F* m_ENDL1A; //!
+    TH1F* m_ENDToT; //!
+    TH1F* m_ENDCharge; //!
+    TH1F* m_ENDdEdx; //!
+    TH2F* m_ENDdEdxVsP; //!
+    TH1F* m_ENDHitSize; //!
+    TH1F* m_ENDHitSizeZ; //!
+    TH1F* m_ENDHitSizePhi; //!
+    TH1F* m_ENDunbiasedResidualX; //!
+    TH1F* m_ENDunbiasedResidualY; //!
+    TH1F* m_ENDIsolation10x2; //!
+    TH1F* m_ENDIsolation20x4; //!
+    TH1F* m_ENDnumTotalClustersPerModule; //!
+    TH1F* m_ENDnumTotalPixelsPerModule; //!
+    TH2F* m_ENDLorentzAngle; //!
+    TH2F* m_ED1Map; //!
+    TH2F* m_ED1MapHit; //!
+    TH1F* m_ED1MapEta; //!
+    TH1F* m_ED1MapHitEta; //!
+    TH2F* m_ED23Map; //!
+    TH2F* m_ED23MapHit; //!
+    TH1F* m_ED23MapEta; //!
+    TH1F* m_ED23MapHitEta; //!
+
+};
+
+#endif //HistManager_TrackHists_H

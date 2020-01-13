@@ -1,0 +1,6 @@
+[ libHistManagerDict.so ]
+# List of selected classes
+class ManageHists
+class TrackHists
+header ManageHists.h
+header TrackHists.h
