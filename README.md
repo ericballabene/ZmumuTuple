@@ -1,10 +1,10 @@
-** Setup ATLAS**
+## Setup ATLAS
    on lxplus: setupATLAS 
    on a different machine: 
    export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
    source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh  
 
-** Setup**
+## Setup
    lsetup -a testing asetup
    asetup 21.2,AnalysisBase,latest
 
