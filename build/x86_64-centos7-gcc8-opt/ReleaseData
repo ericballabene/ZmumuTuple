@@ -1,9 +1,0 @@
-[release_metadata]
-release:1.0.0
-nightly name:Unknown
-project name:UserAnalysis
-nightly release:Unknown
-date:2020-01-10T1003
-compiler:GNU-8.3.0
-cxxpath:/cvmfs/sft.cern.ch/lcg/releases/gcc/8.3.0-cebb0/x86_64-centos7/bin/g++
-cmake:3.14.3

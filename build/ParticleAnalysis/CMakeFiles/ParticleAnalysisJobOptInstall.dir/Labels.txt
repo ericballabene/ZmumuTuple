@@ -1,3 +1,0 @@
-# Target labels
- ParticleAnalysis
-# Source files and their labels

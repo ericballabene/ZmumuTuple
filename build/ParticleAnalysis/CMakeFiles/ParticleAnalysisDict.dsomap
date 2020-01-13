@@ -1,4 +1,0 @@
-[ libParticleAnalysisDict.so ]
-# List of selected classes
-class ZmumuAnalysis
-header ZmumuAnalysis.h

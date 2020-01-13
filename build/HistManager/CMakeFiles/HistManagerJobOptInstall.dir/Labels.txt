@@ -1,3 +1,0 @@
-# Target labels
- HistManager
-# Source files and their labels
