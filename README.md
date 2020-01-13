@@ -1,10 +1,10 @@
 # Setup ATLAS
-   on lxplus: setupATLAS
-   on a different machine: 
+   on lxplus: setupATLAS \\
+   on a different machine: \\
    export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
    source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh  
 
-#Then,
+# Setup
    lsetup -a testing asetup
    asetup 21.2,AnalysisBase,latest
 
@@ -14,7 +14,7 @@
    source ./x86_64-centos7-gcc8-opt/setup.sh
    mkdir ../submitDir
    
-#To run the code, 
+#Run the code, 
    source example.sh
    
 
