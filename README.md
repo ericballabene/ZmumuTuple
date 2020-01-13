@@ -14,11 +14,9 @@
    source ./x86_64-centos7-gcc8-opt/setup.sh
    mkdir ../submitDir
    
-**Run the code, **
+##Run the code
    source example.sh
    
-
-**Please,**
-keep attention that if the input xAOD is IDTRACKVALID, then, please set 
+Keep attention that if the input xAOD is IDTRACKVALID, then, please set 
    —ReadIDTRKVALID=1    
    
